@@ -62,5 +62,7 @@ public class TreeTraversal {
         System.out.println();
         traversal.postOrder(root);
         System.out.println();
+        System.out.println("===========");
+        traversal.postOrder(creater.createTree("ABDEGCF", "DBGEACF"));
     }
 }
