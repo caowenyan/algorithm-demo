@@ -99,9 +99,47 @@ public class LinkedList<E> {
         return remove(size - 1);
     }
 
+    public void removeElements(E e){
+        dummyHead.next = removeElements(dummyHead.next, e);
+    }
+
+    private Node removeElements(Node<E> node, E e) {
+        if(node == null)
+            return null;
+        if(node.e.equals(e)) {
+            size -- ;
+            return removeElements(node.next, e);
+        }
+        node.next = removeElements(node.next, e);
+        return node;
+    }
+
+    public void removeElementsNR(E e){
+        Node node = dummyHead.next;
+        while(node != null && node.e.equals(e)){
+            Node del = node;
+            node = node.next;
+            del.next = null;
+        }
+        dummyHead.next = node;
+        if(node == null){
+            return;
+        }
+        while(node.next != null){
+            if(node.next.e.equals(e)){
+                Node del = node.next;
+                node.next = node.next.next;
+                del.next = null;
+                size --;
+            }else{
+                node = node.next;
+            }
+        }
+    }
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
+        res.append("LinkedList size:").append(size).append("\t");
         for(Node node = dummyHead.next; node != null; node = node.next){
             res.append(node.e).append("->");
         }
@@ -150,6 +188,20 @@ public class LinkedList<E> {
         linkedList.remove(2);
         System.out.println(linkedList);
         linkedList.removeFirst();
+        System.out.println(linkedList);
+
+        linkedList.add(2, 22);
+        System.out.println(linkedList);
+        linkedList.add(2, 22);
+        System.out.println(linkedList);
+        linkedList.add(5, 22);
+        System.out.println(linkedList);
+        linkedList.add(12, 22);
+        System.out.println(linkedList);
+        linkedList.add(13, 22);
+        System.out.println(linkedList);
+
+        linkedList.removeElementsNR(22);
         System.out.println(linkedList);
     }
 }
